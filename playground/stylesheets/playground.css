@@ -1,0 +1,19 @@
+h1, h2 {
+  font-weight: 100;
+  margin-bottom: 0.25em;
+}
+#input {
+  width: 281px;
+  padding: 8.5px;
+  min-height: 300px;
+}
+
+#html {
+  min-height: 300px;
+}
+#output {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  min-height: 300px;
+  padding: 8.5px;
+}
