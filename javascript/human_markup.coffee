@@ -3,7 +3,7 @@ class window.HumanMarkup
   @h2_regex = /^([ ]*[^\d\W].*[^\W_])(\n[^*=_-])/gm
   @blockquote_regex = /^"(.*)"(\n*)$/gm
   @quote_regex = /[^(<]"(.*)"[^)>\n]/g
-  @strong_regex = /(\w[\w ]*[!])/g
+  @strong_regex = /(\w[\w ,'-]*[!])/g
 
   constructor: (@input, @html, @output) ->
     if @input? && @html? && @output?

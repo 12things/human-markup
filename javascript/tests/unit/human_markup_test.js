@@ -32,6 +32,10 @@
     });
     return test("should turn sentences with exclamation marks into bold", function() {
       equal(this.hm.process('I am bold!'), '<strong>I am bold!</strong>');
+      equal(this.hm.process('I am bold, too!'), '<strong>I am bold, too!</strong>');
+      equal(this.hm.process('I am semi-bold!'), '<strong>I am semi-bold!</strong>');
+      equal(this.hm.process('I am under_bold!'), '<strong>I am under_bold!</strong>');
+      equal(this.hm.process('I\'m bold, too!'), '<strong>I\'m bold, too!</strong>');
       equal(this.hm.process('Bla bla bla. I am bold! Bla bla.'), 'Bla bla bla. <strong>I am bold!</strong> Bla bla.');
       equal(this.hm.process('I am bold! Bla bla bla. Bla bla.'), '<strong>I am bold!</strong> Bla bla bla. Bla bla.');
       return equal(this.hm.process('Bla bla bla. Bla bla. I am bold!'), 'Bla bla bla. Bla bla. <strong>I am bold!</strong>');
