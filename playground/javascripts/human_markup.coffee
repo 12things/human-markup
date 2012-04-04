@@ -21,3 +21,11 @@ class HumanMarkup
 
 $ ->
   new HumanMarkup($('#input'), $('#html'), $('#output'))
+  
+  converter = new Markdown.Converter()
+  
+  $('#input-md').on 'keyup', () ->
+    html = converter.makeHtml($('#input-md').val())
+    console.log html
+    $('#html-md').text html
+    $('#output-md').html html

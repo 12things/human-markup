@@ -38,7 +38,16 @@
   })();
 
   $(function() {
-    return new HumanMarkup($('#input'), $('#html'), $('#output'));
+    var converter;
+    new HumanMarkup($('#input'), $('#html'), $('#output'));
+    converter = new Markdown.Converter();
+    return $('#input-md').on('keyup', function() {
+      var html;
+      html = converter.makeHtml($('#input-md').val());
+      console.log(html);
+      $('#html-md').text(html);
+      return $('#output-md').html(html);
+    });
   });
 
 }).call(this);
