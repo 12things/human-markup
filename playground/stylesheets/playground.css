@@ -1,0 +1,28 @@
+h1 {
+  font-weight: 100;
+  margin-bottom: 0.25em;
+}
+
+h2,h3 {
+  font-weight: 300;
+  margin-bottom: 0.25em;
+}
+
+#input,
+#input-md {
+  min-width: 281px;
+  padding: 8.5px;
+  min-height: 300px;
+}
+
+#html,
+#html-md {
+  min-height: 300px;
+}
+#output,
+#output-md {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  min-height: 300px;
+  padding: 8.5px;
+}
