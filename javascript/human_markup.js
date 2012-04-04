@@ -10,7 +10,7 @@
 
     HumanMarkup.quote_regex = /[^(<]"(.*)"[^)>\n]/g;
 
-    HumanMarkup.strong_regex = /(\w[\w ]*[!])/g;
+    HumanMarkup.strong_regex = /(\w[\w ,'-]*[!])/g;
 
     function HumanMarkup(input, html, output) {
       var _this = this;

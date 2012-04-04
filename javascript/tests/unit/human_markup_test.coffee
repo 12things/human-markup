@@ -30,6 +30,10 @@ $ ->
 
   test "should turn sentences with exclamation marks into bold", () ->
     equal @hm.process('I am bold!'), '<strong>I am bold!</strong>'
+    equal @hm.process('I am bold, too!'), '<strong>I am bold, too!</strong>'    
+    equal @hm.process('I am semi-bold!'), '<strong>I am semi-bold!</strong>'    
+    equal @hm.process('I am under_bold!'), '<strong>I am under_bold!</strong>'    
+    equal @hm.process('I\'m bold, too!'), '<strong>I\'m bold, too!</strong>'    
     equal @hm.process('Bla bla bla. I am bold! Bla bla.'), 'Bla bla bla. <strong>I am bold!</strong> Bla bla.'
     equal @hm.process('I am bold! Bla bla bla. Bla bla.'), '<strong>I am bold!</strong> Bla bla bla. Bla bla.'
     equal @hm.process('Bla bla bla. Bla bla. I am bold!'), 'Bla bla bla. Bla bla. <strong>I am bold!</strong>'
