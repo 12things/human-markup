@@ -6,9 +6,11 @@
 
     HumanMarkup.h2_regex = /^(\w.*[^\W])$(\n)/gm;
 
-    HumanMarkup.p_regex = /^(\w.*[\W])$(\n+)$/gm;
+    HumanMarkup.blockquote_regex = /^"(.*)"(\n*)$/gm;
 
-    HumanMarkup.strong_regex = /([\w ]*[.?])?([\w ]*[!])/g;
+    HumanMarkup.quote_regex = /[^(]"(.*)"[^)]/g;
+
+    HumanMarkup.strong_regex = /([\w ]*[.?])?([\w ]*[!])[^[]/g;
 
     function HumanMarkup(input, html, output) {
       var _this = this;
@@ -28,7 +30,8 @@
     HumanMarkup.prototype.process = function(text) {
       text = this.markdownBefore(text);
       text = this.detectHeadings(text);
-      text = this.detectParagraphs(text);
+      text = this.detectBlockquotes(text);
+      text = this.detectQuotes(text);
       text = this.detectBolds(text);
       return text = this.markdownAfter(text);
     };
@@ -38,8 +41,12 @@
       return text = text.replace(HumanMarkup.h2_regex, "<h2>$1</h2>\n\n");
     };
 
-    HumanMarkup.prototype.detectParagraphs = function(text) {
-      return text = text.replace(HumanMarkup.p_regex, "<p>$1</p>\n");
+    HumanMarkup.prototype.detectBlockquotes = function(text) {
+      return text = text.replace(HumanMarkup.blockquote_regex, "<blockquote><p>$1</p></blockquote>\n");
+    };
+
+    HumanMarkup.prototype.detectQuotes = function(text) {
+      return text = text.replace(HumanMarkup.quote_regex, " <q>$1</q> ");
     };
 
     HumanMarkup.prototype.detectBolds = function(text) {

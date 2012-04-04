@@ -1,33 +1,38 @@
 class window.HumanMarkup
   @h1_regex = /^(\w.*[^\W])$(\n\n+)/gm
   @h2_regex = /^(\w.*[^\W])$(\n)/gm
-  @p_regex = /^(\w.*[\W])$(\n+)$/gm
-  @strong_regex = /([\w ]*[.?])?([\w ]*[!])/g
+  @blockquote_regex = /^"(.*)"(\n*)$/gm
+  @quote_regex = /[^(]"(.*)"[^)]/g
+  @strong_regex = /([\w ]*[.?])?([\w ]*[!])[^[]/g
   
   constructor: (@input, @html, @output) ->
     @input.on 'keyup', () =>
       @.run()
-    
+  
   run: () ->
     @html.text @.process(@input.val())
     @output.html @.process(@input.val())
-    
+  
   process: (text) ->
     text = @.markdownBefore text
-
+    
     # Human Markup
     text = @.detectHeadings text
-    text = @.detectParagraphs text
+    text = @.detectBlockquotes text
+    text = @.detectQuotes text
     text = @.detectBolds text
-
+    
     text = @.markdownAfter text
                 
   detectHeadings: (text) ->
     text = text.replace HumanMarkup.h1_regex, "<h1>$1</h1>\n\n"
     text = text.replace HumanMarkup.h2_regex, "<h2>$1</h2>\n\n"
 
-  detectParagraphs: (text) ->
-    text = text.replace HumanMarkup.p_regex, "<p>$1</p>\n"
+  detectBlockquotes: (text) ->
+    text = text.replace HumanMarkup.blockquote_regex, "<blockquote><p>$1</p></blockquote>\n"
+
+  detectQuotes: (text) ->
+    text = text.replace HumanMarkup.quote_regex, " <q>$1</q> "
 
   detectBolds: (text) ->
     text = text.replace HumanMarkup.strong_regex, "$1<strong>$2</strong>"
