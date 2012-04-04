@@ -7,9 +7,9 @@
 
     HumanMarkup.h2_regex = /^(\w.*[^\W])$(\n)/gm;
 
-    HumanMarkup.p_regex = /^(\w.*[\W])$(\n\n+)/gm;
+    HumanMarkup.p_regex = /^(\w.*[\W])$(\n+)$/gm;
 
-    HumanMarkup.strong_regex = /([\w ]*[.?])?([\w. ]*[!])/g;
+    HumanMarkup.strong_regex = /([\w ]*[.?])?([\w ]*[!])/g;
 
     function HumanMarkup(input, html, output) {
       var _this = this;
@@ -40,7 +40,7 @@
     };
 
     HumanMarkup.prototype.detectParagraphs = function(text) {
-      return text = text.replace(HumanMarkup.p_regex, "<p>$1</p>\n\n");
+      return text = text.replace(HumanMarkup.p_regex, "<p>$1</p>\n");
     };
 
     HumanMarkup.prototype.detectBolds = function(text) {

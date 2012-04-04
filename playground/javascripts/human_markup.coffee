@@ -1,8 +1,8 @@
 class HumanMarkup
   @h1_regex = /^(\w.*[^\W])$(\n\n+)/gm
   @h2_regex = /^(\w.*[^\W])$(\n)/gm
-  @p_regex = /^(\w.*[\W])$(\n\n+)/gm
-  @strong_regex = /([\w ]*[.?])?([\w. ]*[!])/g
+  @p_regex = /^(\w.*[\W])$(\n+)$/gm
+  @strong_regex = /([\w ]*[.?])?([\w ]*[!])/g
   
   constructor: (@input, @html, @output) ->
     @input.on 'keyup', () =>
@@ -27,7 +27,7 @@ class HumanMarkup
     text = text.replace HumanMarkup.h2_regex, "<h2>$1</h2>\n\n"
 
   detectParagraphs: (text) ->
-    text = text.replace HumanMarkup.p_regex, "<p>$1</p>\n\n"
+    text = text.replace HumanMarkup.p_regex, "<p>$1</p>\n"
 
   detectBolds: (text) ->
     text = text.replace HumanMarkup.strong_regex, "$1<strong>$2</strong>"
