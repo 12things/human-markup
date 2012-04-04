@@ -4,7 +4,7 @@ $ ->
   converter = new Markdown.Converter()
   
   markdown = """
-# Hi, I'm Markdown
+# This is plain markdown stuff
 
 What can **I do** for *you*?
 
@@ -60,21 +60,16 @@ two spaces
 
 
 [de]: http://google.de/  "German Google"
+
+
 """
-  window.resetMd = () ->    
-    $('#input-md').val markdown
-    html = converter.makeHtml($('#input-md').val())
-    $('#html-md').text html
-    $('#output-md').html html
-  
-  resetMd()
 
   humanMarkup = """
-This is a Heading
+This is human markup
 
-Here comes a paragraph.
+"Here comes a blockquote."
 
-And another paragraph.
+And "this is an inline" quote.
 
 This is a secondary Heading
 Cause the paragraph comes right away.
@@ -84,10 +79,30 @@ This should be bold! This should be normal. Bold! Normal? Works.
 
 """
   window.resetHuman = () ->    
-    $('#input').val humanMarkup
+    $('#input').val humanMarkup+markdown
     hm.run()
+    $('#input-md').val $('#html').text()
+    html = converter.makeHtml($('#input-md').val())
+    $('#html-md').text html
+    $('#output-md').html html
 
   resetHuman()
+  
+  $('#input').on 'keyup', () ->
+    $('#input-md').val $('#html').text()
+    html = converter.makeHtml($('#input-md').val())
+    $('#html-md').text html
+    $('#output-md').html html
+    
+  # 
+  # window.resetMd = () ->
+  #   $('#input-md').val markdown
+  #   html = converter.makeHtml($('#input-md').val())
+  #   $('#html-md').text html
+  #   $('#output-md').html html
+  # 
+  # resetMd()
+
   
   $('#input-md').on 'keyup', () ->
     html = converter.makeHtml($('#input-md').val())
