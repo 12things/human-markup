@@ -58,6 +58,11 @@ You don't have to repeat them on every line.
 > * You can quote a list.
 > * Etc.
 
+## Images
+![12sites](http://12sites.de/assets/12sites_large.png "Visit 12sites")
+
+Psst: they work reference style like links, too.
+
 ## Horizontal rules
 
 This rule rules
