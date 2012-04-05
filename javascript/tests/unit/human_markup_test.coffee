@@ -23,10 +23,10 @@ $ ->
     equal @hm.process('"I am Blockquote"'), '<blockquote><p>I am Blockquote</p></blockquote>\n\n'
     equal @hm.process('"I am Blockquote"\n\n'), '<blockquote><p>I am Blockquote</p></blockquote>\n\n'
 
-  test "should turn inline quotation marks into quotes", () ->
-    equal @hm.process('Bla bla bla "I am Quote" bla bla.'), 'Bla bla bla <q>I am Quote</q> bla bla.'
-    equal @hm.process('Bla bla bla "I am Quote" bla bla.\n\n'), 'Bla bla bla <q>I am Quote</q> bla bla.\n\n'
-    equal @hm.process('\nBla bla bla "I am Quote" bla bla'), '\nBla bla bla <q>I am Quote</q> bla bla'
+  test "should turn inline quotation marks into cites", () ->
+    equal @hm.process('Bla bla bla "I am Quote" bla bla.'), 'Bla bla bla <cite>I am Quote</cite> bla bla.'
+    equal @hm.process('Bla bla bla "I am Quote" bla bla.\n\n'), 'Bla bla bla <cite>I am Quote</cite> bla bla.\n\n'
+    equal @hm.process('\nBla bla bla "I am Quote" bla bla'), '\nBla bla bla <cite>I am Quote</cite> bla bla'
 
   test "should turn sentences with exclamation marks into bold", () ->
     equal @hm.process('I am bold!'), '<strong>I am bold!</strong>'
