@@ -8,7 +8,7 @@
 
     HumanMarkup.blockquote_regex = /^"(.*)"(\n*)$/gm;
 
-    HumanMarkup.quote_regex = /[^(<]"(.*)"[^)>\n]/g;
+    HumanMarkup.cite_regex = /[^(<]"(.*)"[^)>\n]/g;
 
     HumanMarkup.strong_regex = /(\w[\w ,'-]*[!])/g;
 
@@ -32,7 +32,7 @@
     HumanMarkup.prototype.process = function(text) {
       text = this.detectHeadings(text);
       text = this.detectBlockquotes(text);
-      text = this.detectQuotes(text);
+      text = this.detectCites(text);
       return text = this.detectBolds(text);
     };
 
@@ -45,8 +45,8 @@
       return text = text.replace(HumanMarkup.blockquote_regex, "<blockquote><p>$1</p></blockquote>\n\n");
     };
 
-    HumanMarkup.prototype.detectQuotes = function(text) {
-      return text = text.replace(HumanMarkup.quote_regex, " <q>$1</q> ");
+    HumanMarkup.prototype.detectCites = function(text) {
+      return text = text.replace(HumanMarkup.cite_regex, " <cite>$1</cite> ");
     };
 
     HumanMarkup.prototype.detectBolds = function(text) {

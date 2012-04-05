@@ -2,7 +2,7 @@ class window.HumanMarkup
   @h1_regex = /^([ ]*[^\d\W].*[^\W_])(\n\n+)/gm
   @h2_regex = /^([ ]*[^\d\W].*[^\W_])(\n[^*=_-])/gm
   @blockquote_regex = /^"(.*)"(\n*)$/gm
-  @quote_regex = /[^(<]"(.*)"[^)>\n]/g
+  @cite_regex = /[^(<]"(.*)"[^)>\n]/g
   @strong_regex = /(\w[\w ,'-]*[!])/g
 
   constructor: (@input, @html, @output) ->
@@ -18,7 +18,7 @@ class window.HumanMarkup
     # Human Markup
     text = @.detectHeadings text
     text = @.detectBlockquotes text
-    text = @.detectQuotes text
+    text = @.detectCites text
     text = @.detectBolds text
                 
   detectHeadings: (text) ->
@@ -28,8 +28,8 @@ class window.HumanMarkup
   detectBlockquotes: (text) ->
     text = text.replace HumanMarkup.blockquote_regex, "<blockquote><p>$1</p></blockquote>\n\n"
 
-  detectQuotes: (text) ->
-    text = text.replace HumanMarkup.quote_regex, " <q>$1</q> "
+  detectCites: (text) ->
+    text = text.replace HumanMarkup.cite_regex, " <cite>$1</cite> "
 
   detectBolds: (text) ->
     text = text.replace HumanMarkup.strong_regex, "<strong>$1</strong>"
