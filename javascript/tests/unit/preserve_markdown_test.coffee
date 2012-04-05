@@ -168,4 +168,12 @@ $ ->
     s='[12sites]: http://12sites.de/assets/12sites_large.html "Visit 12sites"\n\n'
     equal @hm.process(s), s
 
+  test "should preserve links mixed with quotes", () ->
+    s1='"This is a quote", for this [12sites](http://12sites.de/assets/12sites_large.png "Visit 12sites") okay?'
+    s2='"<em>This is a quote</em>", for this [12sites](http://12sites.de/assets/12sites_large.png "Visit 12sites") okay?'
+    equal @hm.process(s1), s2
+
+    s1='[12sites](http://12sites.de/assets/12sites_large.png "Visit 12sites") "I can quote this".'
+    s2='[12sites](http://12sites.de/assets/12sites_large.png "Visit 12sites") "<em>I can quote this</em>".'
+    equal @hm.process(s1), s2
 

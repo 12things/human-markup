@@ -122,7 +122,7 @@
       s = '[12sites]: http://12sites.de/assets/12sites_large.png "Visit 12sites"\n\n';
       return equal(this.hm.process(s), s);
     });
-    return test("should preserve links", function() {
+    test("should preserve links", function() {
       var s;
       s = '[12sites](http://12sites.de/assets/12sites_large.png "Visit 12sites")';
       equal(this.hm.process(s), s);
@@ -142,6 +142,15 @@
       equal(this.hm.process(s), s);
       s = '[12sites]: http://12sites.de/assets/12sites_large.html "Visit 12sites"\n\n';
       return equal(this.hm.process(s), s);
+    });
+    return test("should preserve links mixed with quotes", function() {
+      var s1, s2;
+      s1 = '"This is a quote", for this [12sites](http://12sites.de/assets/12sites_large.png "Visit 12sites") okay?';
+      s2 = '"<em>This is a quote</em>", for this [12sites](http://12sites.de/assets/12sites_large.png "Visit 12sites") okay?';
+      equal(this.hm.process(s1), s2);
+      s1 = '[12sites](http://12sites.de/assets/12sites_large.png "Visit 12sites") "I can quote this".';
+      s2 = '[12sites](http://12sites.de/assets/12sites_large.png "Visit 12sites") "<em>I can quote this</em>".';
+      return equal(this.hm.process(s1), s2);
     });
   });
 
