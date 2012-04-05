@@ -2,14 +2,20 @@ class window.HumanMarkup
   @h1_regex = /^([ ]*[^\d\W].*[^\W_])(\n\n+)/gm
   @h2_regex = /^([ ]*[^\d\W].*[^\W_])(\n[^*=_-])/gm
   @blockquote_regex = /^\s*"(.*)"\s*$/gm
-  @cite_regex = /[^(<]"(.*)"[^)>\n]/g
+  @em_regex =  /[^(<](["'„‚‘»›«‹])(.+?)(["'“‘«‹»›])[^)>\n]/g
   @strong_regex = /(\w[\w ,'-]*[!])/g
 
-  constructor: (@input, @html, @output) ->
+  constructor: (@input, @html, @output, options={}) ->
+    @options = $.extend {
+      typoQuotes: false
+    }, options
+    
     if @input? && @html? && @output?
       @input.on 'keyup', () =>
         @.run()
   
+  setOptions: (@options) ->
+    
   run: () ->
     @html.text @.process(@input.val())
     @output.html @.process(@input.val())
@@ -18,7 +24,7 @@ class window.HumanMarkup
     # Human Markup
     text = @.detectHeadings text
     text = @.detectBlockquotes text
-    text = @.detectCites text
+    text = @.detectQuotations text
     text = @.detectBolds text
                 
   detectHeadings: (text) ->
@@ -28,8 +34,9 @@ class window.HumanMarkup
   detectBlockquotes: (text) ->
     text = text.replace HumanMarkup.blockquote_regex, "<blockquote><p>$1</p></blockquote>\n\n"
 
-  detectCites: (text) ->
-    text = text.replace HumanMarkup.cite_regex, " <cite>$1</cite> "
+  detectQuotations: (text) ->
+    replacement = if @options.typoQuotes then " „<em>$2</em>“ " else " $1<em>$2</em>$3 "
+    text = text.replace HumanMarkup.em_regex, replacement
 
   detectBolds: (text) ->
     text = text.replace HumanMarkup.strong_regex, "<strong>$1</strong>"

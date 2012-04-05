@@ -25,10 +25,19 @@
       equal(this.hm.process('"I am Blockquote"'), '<blockquote><p>I am Blockquote</p></blockquote>\n\n');
       return equal(this.hm.process('"I am Blockquote"\n\n'), '<blockquote><p>I am Blockquote</p></blockquote>\n\n');
     });
-    test("should turn inline quotation marks into cites", function() {
-      equal(this.hm.process('Bla bla bla "I am Quote" bla bla.'), 'Bla bla bla <cite>I am Quote</cite> bla bla.');
-      equal(this.hm.process('Bla bla bla "I am Quote" bla bla.\n\n'), 'Bla bla bla <cite>I am Quote</cite> bla bla.\n\n');
-      return equal(this.hm.process('\nBla bla bla "I am Quote" bla bla'), '\nBla bla bla <cite>I am Quote</cite> bla bla');
+    test("should turn inline quotation marks into em", function() {
+      equal(this.hm.process('Bla bla bla "I am Quote" bla bla.'), 'Bla bla bla "<em>I am Quote</em>" bla bla.');
+      equal(this.hm.process('Bla bla bla "I am Quote" bla bla.\n\n'), 'Bla bla bla "<em>I am Quote</em>" bla bla.\n\n');
+      equal(this.hm.process('\nBla bla bla "I am Quote" bla bla'), '\nBla bla bla "<em>I am Quote</em>" bla bla');
+      equal(this.hm.process('Bla bla bla "I am Quote" bla "I am another" bla.'), 'Bla bla bla "<em>I am Quote</em>" bla "<em>I am another</em>" bla.');
+      equal(this.hm.process('Bla "Bla" bla "bla" bla "bla" blubb "blubb"'), 'Bla "<em>Bla</em>" bla "<em>bla</em>" bla "<em>bla</em>" blubb "<em>blubb</em>"');
+      return equal(this.hm.process('"Bla" "Blubb".'), '"<em>Bla</em>" "<em>Blubb</em>".');
+    });
+    test("should turn quotation marks into typographic ones", function() {
+      this.hm.setOptions({
+        typoQuotes: true
+      });
+      return equal(this.hm.process('Bla bla bla "I am Quote" bla bla.'), 'Bla bla bla „<em>I am Quote</em>“ bla bla.');
     });
     return test("should turn sentences with exclamation marks into bold", function() {
       equal(this.hm.process('I am bold!'), '<strong>I am bold!</strong>');

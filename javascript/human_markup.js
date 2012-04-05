@@ -8,21 +8,29 @@
 
     HumanMarkup.blockquote_regex = /^\s*"(.*)"\s*$/gm;
 
-    HumanMarkup.cite_regex = /[^(<]"(.*)"[^)>\n]/g;
+    HumanMarkup.em_regex = /[^(<](["'„‚‘»›«‹])(.+?)(["'“‘«‹»›])[^)>\n]/g;
 
     HumanMarkup.strong_regex = /(\w[\w ,'-]*[!])/g;
 
-    function HumanMarkup(input, html, output) {
+    function HumanMarkup(input, html, output, options) {
       var _this = this;
       this.input = input;
       this.html = html;
       this.output = output;
+      if (options == null) options = {};
+      this.options = $.extend({
+        typoQuotes: false
+      }, options);
       if ((this.input != null) && (this.html != null) && (this.output != null)) {
         this.input.on('keyup', function() {
           return _this.run();
         });
       }
     }
+
+    HumanMarkup.prototype.setOptions = function(options) {
+      this.options = options;
+    };
 
     HumanMarkup.prototype.run = function() {
       this.html.text(this.process(this.input.val()));
@@ -32,7 +40,7 @@
     HumanMarkup.prototype.process = function(text) {
       text = this.detectHeadings(text);
       text = this.detectBlockquotes(text);
-      text = this.detectCites(text);
+      text = this.detectQuotations(text);
       return text = this.detectBolds(text);
     };
 
@@ -45,8 +53,10 @@
       return text = text.replace(HumanMarkup.blockquote_regex, "<blockquote><p>$1</p></blockquote>\n\n");
     };
 
-    HumanMarkup.prototype.detectCites = function(text) {
-      return text = text.replace(HumanMarkup.cite_regex, " <cite>$1</cite> ");
+    HumanMarkup.prototype.detectQuotations = function(text) {
+      var replacement;
+      replacement = this.options.typoQuotes ? " „<em>$2</em>“ " : " $1<em>$2</em>$3 ";
+      return text = text.replace(HumanMarkup.em_regex, replacement);
     };
 
     HumanMarkup.prototype.detectBolds = function(text) {
