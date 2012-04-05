@@ -1,7 +1,7 @@
 class window.HumanMarkup
   @h1_regex = /^([ ]*[^\d\W].*[^\W_])(\n\n+)/gm
   @h2_regex = /^([ ]*[^\d\W].*[^\W_])(\n[^*=_-])/gm
-  @blockquote_regex = /^"(.*)"(\n*)$/gm
+  @blockquote_regex = /^\s*"(.*)"\s*$/gm
   @cite_regex = /[^(<]"(.*)"[^)>\n]/g
   @strong_regex = /(\w[\w ,'-]*[!])/g
 

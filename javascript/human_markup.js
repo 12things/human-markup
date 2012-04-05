@@ -6,7 +6,7 @@
 
     HumanMarkup.h2_regex = /^([ ]*[^\d\W].*[^\W_])(\n[^*=_-])/gm;
 
-    HumanMarkup.blockquote_regex = /^"(.*)"(\n*)$/gm;
+    HumanMarkup.blockquote_regex = /^\s*"(.*)"\s*$/gm;
 
     HumanMarkup.cite_regex = /[^(<]"(.*)"[^)>\n]/g;
 
